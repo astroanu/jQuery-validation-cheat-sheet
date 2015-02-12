@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>jQuery Validation Cheatsheet</title>
+  <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.2/js/bootstrap.min.js"></script>
+  <style type="text/css">
+body {
+ padding-top:50px;
+}
+
+#masthead { 
+ min-height:250px;
+}
+
+#masthead h1 {
+ font-size: 30px;
+ line-height: 1;
+ padding-top:20px;
+}
+
+#masthead .well {
+ margin-top:8%;
+}
+
+@media screen and (min-width: 768px) {
+  #masthead h1 {
+    font-size: 50px;
+  }
+}
+
+.navbar-bright {
+ background-color:#111155;
+ color:#fff;
+}
+
+.affix-top,.affix{
+ position: static;
+}
+
+@media (min-width: 979px) {
+  #sidebar.affix-top {
+    position: static;
+    margin-top:30px;
+    width:228px;
+  }
+  
+  #sidebar.affix {
+    position: fixed;
+    top:70px;
+    width:228px;
+  }
+}
+
+#sidebar li.active {
+  border:0 #eee solid;
+  border-right-width:5px;
+}
+
+.nav>li>a{padding: 0;}
+  </style>
+</head>
+<body>
+<nav class="navbar navbar-default navbar-fixed-top" role="banner">
+  <div class="container">
+    <div class="navbar-header">
+      <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a href="/" class="navbar-brand">Bootply</a>
+    </div>
+    <nav class="collapse navbar-collapse" role="navigation">
+      <ul class="nav navbar-nav">
+        <li>
+          <a href="#sec">Get Started</a>
+        </li>
+        <li>
+          <a href="#sec">Edit</a>
+        </li>
+        <li>
+          <a href="#sec">Visualize</a>
+        </li>
+        <li>
+          <a href="#sec">Prototype</a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</nav>
+
+<div id="masthead">  
+  <div class="container">
+      <div class="row">
+        <div class="col-md-7">
+          <h1>Bootstrap Sidebar
+            <p class="lead">With Affix and Scrollspy</p>
+          </h1>
+        </div>
+        <div class="col-md-5">
+            <div class="well well-lg"> 
+              <div class="row">
+                <div class="col-sm-6">
+                  <img src="//placehold.it/180x100" class="img-responsive">
+                </div>
+                <div class="col-sm-6">
+                  Some text here
+                </div>
+              </div>
+            </div>
+        </div>
+      </div> 
+  </div><!--/container-->
+</div><!--/masthead-->
+
+<!--main-->
+<div class="container">
+  <div class="row">
+      <!--left-->
+      <div class="col-md-3" id="leftCol">
+        <ul class="nav nav-stacked" id="sidebar">
+          <li><a href="#require_from_group method">require_from_group method</a></li>
+          <li><a href="#url">url</a></li>
+          <li><a href="#required">required</a></li>
+          <li><a href="#remote">remote</a></li>
+          <li><a href="#rangelength">rangelength</a></li>
+          <li><a href="#range">range</a></li>
+          <li><a href="#phoneUS">phoneUS</a></li>
+          <li><a href="#number">number</a></li>
+          <li><a href="#minlength">minlength</a></li>
+          <li><a href="#min">min</a></li>
+          <li><a href="#maxlength">maxlength</a></li>
+          <li><a href="#max">max</a></li>
+          <li><a href="#extension">extension</a></li>
+          <li><a href="#equalTo">equalTo</a></li>
+          <li><a href="#email">email</a></li>
+          <li><a href="#digits">digits</a></li>
+          <li><a href="#dateISO">dateISO</a></li>
+          <li><a href="#date">date</a></li>
+          <li><a href="#creditcard">creditcard</a></li>
+          <li><a href="#accept">accept</a></li>
+        </ul>
+      </div><!--/left-->
+      
+      <!--right-->
+      <div class="col-md-9">
+        <h2 id="sec0">require_from_group</h2>
+        <p>
+          $( "#myform" ).validate({
+  rules: {
+    mobile_phone: {
+      require_from_group: [1, ".phone-group"]
+    },
+    home_phone: {
+      require_from_group: [1, ".phone-group"]
+    },
+    work_phone: {
+      require_from_group: [1, ".phone-group"]
+    }
+  }
+});
+
+</p>
+        
+        <h2 id="url">url</h2>
+        <p>
+          $( "#myform" ).validate({
+  rules: {
+    field: {
+      required: true,
+      url: true
+    }
+  }
+});
+        </p>
+        
+        <h2 id="required">required</h2>
+        <p>
+          $( "#myform" ).validate({
+  rules: {
+    field: {
+      required: true
+    }
+  }
+});
+        </p>
+        
+        <h2 id="remote">remote</h2>
+        <p>
+          $( "#myform" ).validate({
+  rules: {
+    email: {
+      required: true,
+      email: true,
+      remote: {
+        url: "check-email.php",
+        type: "post",
+        data: {
+          username: function() {
+            return $( "#username" ).val();
+          }
+        }
+      }
+    }
+  }
+});</p>
+       
+        
+        <h2 id="rangelength">rangelength</h2>
+        <p>
+          $( "#myform" ).validate({
+  rules: {
+    field: {
+      required: true,
+      rangelength: [2, 6]
+    }
+  }
+});</p>
+        
+  
+ <h2 id="range">range</h2>
+        <p>
+         $( "#myform" ).validate({
+  rules: {
+    field: {
+      required: true,
+      range: [13, 23]
+    }
+  }
+});</p>  
+
+
+ <h2 id="phoneUS">phoneUS</h2>
+        <p>
+        $( "#myform" ).validate({
+  rules: {
+    field: {
+      required: true,
+      phoneUS: true
+    }
+  }
+});
+</p>
+
+ <h2 id="number">number</h2>
+        <p>
+        $( "#myform" ).validate({
+  rules: {
+    field: {
+      required: true,
+      number: true
+    }
+  }
+});
+</p>
+
+ <h2 id="minlength">minlength</h2>
+        <p>
+        $( "#myform" ).validate({
+  rules: {
+    field: {
+      required: true,
+      minlength: 3
+    }
+  }
+});
+</p>
+
+ <h2 id="min">min</h2>
+        <p>
+       $( "#myform" ).validate({
+  rules: {
+    field: {
+      required: true,
+      min: 13
+    }
+  }
+});
+</p>
+
+ <h2 id="maxlength">maxlength</h2>
+        <p>
+       $( "#myform" ).validate({
+  rules: {
+    field: {
+      required: true,
+      maxlength: 4
+    }
+  }
+});
+</p>
+
+ <h2 id="max">max</h2>
+        <p>
+       $( "#myform" ).validate({
+  rules: {
+    field: {
+      required: true,
+      max: 8
+    }
+  }
+});
+</p>
+
+ <h2 id="extension">extension</h2>
+        <p>
+       $( "#myform" ).validate({
+  rules: {
+    field: {
+      required: true,
+      extension: "xls|csv"
+    }
+  }
+});
+</p>
+
+
+ <h2 id="equalTo">equalTo</h2>
+        <p>
+       $( "#myform" ).validate({
+  rules: {
+    password: "required",
+    password_again: {
+      equalTo: "#password"
+    }
+  }
+});
+</p>
+
+
+ <h2 id="email">email</h2>
+        <p>
+      $( "#myform" ).validate({
+  rules: {
+    field: {
+      required: true,
+      email: true
+    }
+  }
+});
+</p>
+
+ <h2 id="digits">digits</h2>
+        <p>
+      $( "#myform" ).validate({
+  rules: {
+    field: {
+      required: true,
+      digits: true
+    }
+  }
+});
+</p>
+
+ <h2 id="dateISO">dateISO</h2>
+        <p>
+      $( "#myform" ).validate({
+  rules: {
+    field: {
+      required: true,
+      dateISO: true
+    }
+  }
+});
+</p>
+
+ <h2 id="date">date</h2>
+        <p>
+      $( "#myform" ).validate({
+  rules: {
+    field: {
+      required: true,
+      date: true
+    }
+  }
+});
+</p>
+
+
+ <h2 id="creditcard">creditcard</h2>
+        <p>
+      $( "#myform" ).validate({
+  rules: {
+    field: {
+      required: true,
+      creditcard: true
+    }
+  }
+});
+</p>
+
+
+
+ <h2 id="accept">accept</h2>
+        <p>
+      $( "#myform" ).validate({
+  rules: {
+    field: {
+      required: true,
+      accept: "audio/*"
+    }
+  }
+});
+</p>
+
+
+
+
+
+
+        </div><!--/right-->
+    </div><!--/row-->
+</div><!--/container-->
+
+
+<script type="text/javascript">
+$(function(){
+  /* activate sidebar */
+$('#sidebar').affix({
+  offset: {
+    top: 235
+  }
+});
+
+/* activate scrollspy menu */
+var $body   = $(document.body);
+var navHeight = $('.navbar').outerHeight(true) + 10;
+
+$body.scrollspy({
+  target: '#leftCol',
+  offset: navHeight
+});
+
+/* smooth scrolling sections */
+$('a[href*=#]:not([href=#])').click(function() {
+    if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'') && location.hostname == this.hostname) {
+      var target = $(this.hash);
+      target = target.length ? target : $('[name=' + this.hash.slice(1) +']');
+      if (target.length) {
+        $('html,body').animate({
+          scrollTop: target.offset().top - 50
+        }, 1000);
+        return false;
+      }
+    }
+});
+});
+
+</script>
+</body>
+</html>
