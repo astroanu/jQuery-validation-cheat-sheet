@@ -1,0 +1,1 @@
+Go to [http://astroanu.github.io/jqueryvalidation.org-cheat-sheet](http://astroanu.github.io/jqueryvalidation.org-cheat-sheet)
